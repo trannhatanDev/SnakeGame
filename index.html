@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Snake Cyber Game - HTML5</title>
+  
+  <!-- AvaSnap Game SDK v1 (NexusPlay Hub Integration) -->
+  <script src="https://nexusplay-eta.vercel.app/sdk/avasnap-sdk.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <!-- Loading Screen -->
+    <div id="loading-overlay">
+      <div class="spinner"></div>
+      <h2 style="letter-spacing: 2px;">ĐANG TẢI SNAKE CYBER...</h2>
+      <p id="loading-progress" style="margin-top: 8px; color: #aaa; font-size: 14px;">0%</p>
+    </div>
+
+    <!-- HUD Fast Controls -->
+    <div id="hud-buttons">
+      <button id="btn-sound" class="hud-btn" title="Bật/Tắt âm thanh">🔊 ÂM LƯỢNG</button>
+      <button id="btn-touch-toggle" class="hud-btn" title="Hiện nút điều khiển ảo">🎮 NÚT ẢO</button>
+      <button id="btn-fullscreen" class="hud-btn" title="Toàn màn hình">⛶ TOÀN MÀN HÌNH</button>
+    </div>
+
+    <!-- Main Game Canvas (1024 x 768 native like Python original) -->
+    <canvas id="game-canvas" width="1024" height="768"></canvas>
+
+    <!-- Mobile Virtual D-Pad -->
+    <div id="touch-controls">
+      <button class="dpad-btn dpad-up" id="touch-up">▲</button>
+      <button class="dpad-btn dpad-left" id="touch-left">◀</button>
+      <button class="dpad-btn dpad-pause" id="touch-pause">⏸</button>
+      <button class="dpad-btn dpad-right" id="touch-right">▶</button>
+      <button class="dpad-btn dpad-down" id="touch-down">▼</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
