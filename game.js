@@ -1,6 +1,6 @@
 /**
  * Snake Cyber Game - HTML5 Canvas Edition
- * Replicated from Group 1 (Nhóm 1) Pygame project with AvaSnap SDK v1 Integration.
+ * Replicated from Group 1 (Nhóm 1) Pygame project with NexusPlay SDK v1 Integration.
  */
 
 (function () {
@@ -461,9 +461,10 @@
     currentState = STATES.GAMEOVER;
     saveHighscore(playerName, eatenCount, currentLevel);
 
-    // Gửi telemetry về Hub AvaSnap
-    if (window.AvaSnap && typeof window.AvaSnap.result === 'function') {
-      window.AvaSnap.result({
+    // Gửi telemetry về Hub NexusPlay
+    const sdk = window.NexusPlay || window.AvaSnap;
+    if (sdk && typeof sdk.result === 'function') {
+      sdk.result({
         score: eatenCount,
         level: currentLevel,
         status: 'gameover'
@@ -477,9 +478,10 @@
     currentState = STATES.WIN;
     saveHighscore(playerName, eatenCount, currentLevel);
 
-    // Gửi telemetry về Hub AvaSnap
-    if (window.AvaSnap && typeof window.AvaSnap.result === 'function') {
-      window.AvaSnap.result({
+    // Gửi telemetry về Hub NexusPlay
+    const sdk = window.NexusPlay || window.AvaSnap;
+    if (sdk && typeof sdk.result === 'function') {
+      sdk.result({
         score: eatenCount,
         level: currentLevel,
         status: 'win'
@@ -769,10 +771,10 @@
     const btnAdd = { id: 'btn_vol_add', x: cx + 40, y: 280, w: 70, h: 50, text: '+', colorActive: 'rgb(50, 200, 50)', colorPassive: 'rgb(30, 120, 30)' };
     const btnMute = { id: 'btn_vol_mute', x: cx - 100, y: 360, w: 200, h: 44, text: isMuted ? 'BẬT ÂM' : 'TẮT ÂM', colorActive: 'rgb(220, 120, 30)', colorPassive: 'rgb(120, 70, 20)' };
 
-    // Thông tin Hub AvaSnap
+    // Thông tin Hub NexusPlay
     ctx.fillStyle = '#00ffff';
     ctx.font = '18px Tahoma, sans-serif';
-    ctx.fillText('Nền tảng: NexusPlay Web Hub / AvaSnap SDK v1.1', cx, 470);
+    ctx.fillText('Nền tảng: NexusPlay Web Hub / NexusPlay SDK v1.1', cx, 470);
     ctx.fillStyle = '#94a3b8';
     ctx.fillText(`Độ phân giải hiển thị: ${CANVAS_WIDTH} x ${CANVAS_HEIGHT}`, cx, 510);
 
@@ -1314,11 +1316,14 @@
       // Ẩn màn hình tải
       if (loadingOverlay) loadingOverlay.style.display = 'none';
 
-      // --- TÍCH HỢP AVASNAP SDK ---
+      // --- TÍCH HỢP NEXUSPLAY SDK ---
       // Thông báo với Hub rằng game đã nạp xong và sẵn sàng chạy trong iframe
-      if (window.AvaSnap && typeof window.AvaSnap.ready === 'function') {
-        console.log('[AvaSnap] Báo game đã sẵn sàng: gameId = snake-cyber');
-        window.AvaSnap.ready({ gameId: 'snake-cyber' });
+      const sdk = window.NexusPlay || window.AvaSnap;
+      if (sdk && typeof sdk.ready === 'function') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('gameId') || 'snake-cyber';
+        console.log('[NexusPlay] Báo game đã sẵn sàng: gameId = ' + gameId);
+        sdk.ready({ gameId: gameId });
       }
 
       // Khởi động vòng lặp game

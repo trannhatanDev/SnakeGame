@@ -1,6 +1,6 @@
-# Snake Cyber Game - HTML5 Canvas & AvaSnap SDK Integration
+# Snake Cyber Game - HTML5 Canvas & NexusPlay SDK Integration
 
-Phiên bản Web HTML5 Canvas hoàn chỉnh của game Snake Cyber (chuyển đổi từ dự án Python Pygame của Nhóm 1), tích hợp đầy đủ **AvaSnap Game SDK v1** để chạy trên Hub NexusPlay (`https://nexusplay-eta.vercel.app/`).
+Phiên bản Web HTML5 Canvas hoàn chỉnh của game Snake Cyber (chuyển đổi từ dự án Python Pygame của Nhóm 1), tích hợp đầy đủ **NexusPlay Game SDK v1** để chạy trên Hub NexusPlay (`https://nexusplay-eta.vercel.app/`).
 
 ---
 
@@ -33,32 +33,29 @@ Phiên bản Web HTML5 Canvas hoàn chỉnh của game Snake Cyber (chuyển đ�
 
 ---
 
-## 🚀 Tích Hợp AvaSnap SDK v1
+## 🚀 Tích Hợp NexusPlay SDK v1
 
 File `index.html` và `game.js` đã tích hợp sẵn theo đúng đặc tả:
 
 1. **Thẻ Script trong `index.html`**:
    ```html
-   <script src="https://nexusplay-eta.vercel.app/sdk/avasnap-sdk.js"></script>
+   <script src="https://nexusplay-eta.vercel.app/sdk/nexusplay-sdk.js"></script>
    ```
 
-2. **Báo Game sẵn sàng khi load xong assets**:
+2. **Báo Game sẵn sàng khi nạp xong**:
    ```javascript
-   if (window.AvaSnap && typeof window.AvaSnap.ready === 'function') {
-     window.AvaSnap.ready({ gameId: 'snake-cyber' });
-   }
+   NexusPlay.ready({ gameId: 'snake-cyber' });
    ```
 
 3. **Báo Điểm số & Kết quả trận đấu khi Game Over hoặc Chiến Thắng**:
    ```javascript
-   if (window.AvaSnap && typeof window.AvaSnap.result === 'function') {
-     window.AvaSnap.result({
-       score: eatenCount,
-       level: currentLevel,
-       status: isWin ? 'win' : 'gameover'
-     });
-   }
+   NexusPlay.result({
+     score: eatenCount,
+     level: currentLevel,
+     status: isWin ? 'win' : 'gameover'
+   });
    ```
+   *(Lưu ý: Snake Cyber là game 1 người chơi nên không cần bước tạo phòng `onCreateRoom` / `onJoinRoom` của game nhiều người).*
 
 ---
 
@@ -80,4 +77,4 @@ python -m http.server 8000
 Sau đó truy cập: `http://localhost:8000`
 
 ### Cách 3: Nhúng thử vào iframe của Hub
-Khi deploy lên Vercel, Netlify hoặc GitHub Pages, bạn chỉ cần điền URL của trang này vào Hub AvaSnap / NexusPlay. Game sẽ tự động kết nối qua `postMessage` với Hub!
+Khi deploy lên Vercel, Netlify hoặc GitHub Pages, bạn chỉ cần điền URL của trang này vào Hub NexusPlay. Game sẽ tự động kết nối qua `postMessage` với Hub!
